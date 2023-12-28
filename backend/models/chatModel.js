@@ -1,19 +1,21 @@
+// Bu model mesajların tutulduğu model model de veritabanının karşılığı. 
 const mongoose = require("mongoose");
+
 
 const chatModel = mongoose.Schema(
   {
     chatName: { type: String, trim: true },
     isGroupChat: { type: Boolean, default: false },
-    users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // object id nin anlamı bu arrayin içindekilerin hepsinin id si var nalamına geliyor. 
     latestMessage: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Message",
+      ref: "Message",// bu ObjectId'lerin "Message" koleksiyonundaki belirli bir dokümana referans olduğunu gösterir.
     },
     groupAdmin: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true }
+  { timestamps: true } // oluşma, güncelleme tarihlerini belirtir. 
 );
 
-const Chat = mongoose.model("Chat", chatModel);
+const Chat = mongoose.model("Chat", chatModel); // burda chat mongodb deki koleksiyon adı chat model de yukarda tanımladığımız model. 
 
 module.exports = Chat;

@@ -78,7 +78,7 @@ const Login = () => {
           value={email}
           type="email"
           placeholder="Enter Your Email Address"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}  // email state ini ayarla.
         />
       </FormControl>
       <FormControl id="password" isRequired>
@@ -86,7 +86,7 @@ const Login = () => {
         <InputGroup size="md">
           <Input
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)} // burda input içeriği değiştiğinde setPassword olarak passwordu ayarlıyoruz. yani inputun içeriği demek e.target.value 
             type={show ? "text" : "password"}
             placeholder="Enter password"
           />

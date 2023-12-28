@@ -76,9 +76,10 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      console.log(user.token);
 
       const { data } = await axios.get(`/api/user?search=${search}`, config);
-
+      console.log(data);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -91,7 +92,7 @@ function SideDrawer() {
         position: "bottom-left",
       });
     }
-  };
+  } ;
 
   const accessChat = async (userId) => {
     console.log(userId);
@@ -142,7 +143,7 @@ function SideDrawer() {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Talk-A-Tive
+          Chat App
         </Text>
         <div>
           <Menu>
