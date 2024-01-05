@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 const ChatContext = createContext();
 
-const ChatProvider = ({ children }) => {
+const ChatProvider = ({ children }) => {  
   const [selectedChat, setSelectedChat] = useState();
   const [user, setUser] = useState();
   const [notification, setNotification] = useState([]);
@@ -16,13 +16,13 @@ const ChatProvider = ({ children }) => {
     setUser(userInfo);
 
     if (!userInfo) history.push("/");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [history]);
 
   return (
     <ChatContext.Provider
       value={{
-        selectedChat,
+        selectedChat, 
         setSelectedChat,
         user,
         setUser,
@@ -37,8 +37,8 @@ const ChatProvider = ({ children }) => {
   );
 };
 
-export const ChatState = () => {
-  return useContext(ChatContext);
+export const ChatState = () => {  // burda stateleri kullanmasını istediğimiz zaman import etmemiz için yazıldı yani bunu import edersen statelere müdahale edebilirsin. 
+  return useContext(ChatContext); 
 };
 
 export default ChatProvider;

@@ -3,10 +3,10 @@ const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
 //@description     Create or fetch One to One Chat
-//@route           POST /api/chat/
+//@route           POST /api/chat/      use at sideDriwer.js.
 //@access          Protected
 const accessChat = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.body; //! burda sidedrawer de post ile gönderirken userId gönderiliyor req.body işte ona karşılık geliyor.
 
   if (!userId) {
     console.log("UserId param not sent with request");
@@ -16,16 +16,16 @@ const accessChat = asyncHandler(async (req, res) => {
   var isChat = await Chat.find({
     isGroupChat: false,
     $and: [
-      { users: { $elemMatch: { $eq: req.user._id } } },
-      { users: { $elemMatch: { $eq: userId } } },
+      { users: { $elemMatch: { $eq: req.user._id } } }, // eşleşme yapılıyor req.user._id ile users eşleşiyor mu diye
+      { users: { $elemMatch: { $eq: userId } } }, // body'den gelen userId ile users eşleşiyor mu ? bu ikisininde doğru olması gerekiyor.
     ],
   })
-    .populate("users", "-password")
+    .populate("users", "-password") // burda users alanı chat model de ref değer populate de ref alanlarındaki ilişkileri dolduruyor.
     .populate("latestMessage");
 
   isChat = await User.populate(isChat, {
-    path: "latestMessage.sender",
-    select: "name pic email",
+    path: "latestMessage.sender", // this corresponds to the user
+    select: "name pic email", // fields of selected user
   });
 
   if (isChat.length > 0) {
@@ -53,17 +53,18 @@ const accessChat = asyncHandler(async (req, res) => {
 
 //@description     Fetch all chats for a user
 //@route           GET /api/chat/
-//@access          Protected
+//@access          Protected    use at MyChat.js
+
 const fetchChats = asyncHandler(async (req, res) => {
   try {
     Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
-      .populate("users", "-password")
+      .populate("users", "-password") 
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
       .sort({ updatedAt: -1 })
       .then(async (results) => {
         results = await User.populate(results, {
-          path: "latestMessage.sender",
+          path: "latestMessage.sender", // bu alan name,pic ve email ile result'a göre doldurulacak.
           select: "name pic email",
         });
         res.status(200).send(results);
@@ -82,15 +83,16 @@ const createGroupChat = asyncHandler(async (req, res) => {
     return res.status(400).send({ message: "Please Fill all the feilds" });
   }
 
-  var users = JSON.parse(req.body.users);
+  var users = JSON.parse(req.body.users); //json'dan js nesnesine dönüştürme
 
   if (users.length < 2) {
     return res
       .status(400)
       .send("More than 2 users are required to form a group chat");
+  }else{
+    users.push(req.user);
   }
 
-  users.push(req.user);
 
   try {
     const groupChat = await Chat.create({
@@ -177,7 +179,7 @@ const addToGroup = asyncHandler(async (req, res) => {
     chatId,
     {
       $push: { users: userId },
-    },
+    }, 
     {
       new: true,
     }

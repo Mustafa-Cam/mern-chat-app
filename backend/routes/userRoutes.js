@@ -8,8 +8,13 @@ const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.route("/").get(protect, allUsers);
-router.route("/").post(registerUser);
+// router.get("/",protect,allUsers).post(registerUser); tekrardan araştırdım route kullanımı sebebi okunabilirliği arttırmasıymış yani bu şekildede kullanabilirsin. 
 router.post("/login", authUser);
 
-module.exports = router;
+router.route("/").get(protect, allUsers);
+router.route("/").post(registerUser);
+
+router.post("/",registerUser);
+router.get("/",protect,allUsers);
+
+module.exports = router; //if you notice we always exports as router. 

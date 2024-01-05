@@ -16,6 +16,6 @@ const chatModel = mongoose.Schema(
   { timestamps: true } // oluşma, güncelleme tarihlerini belirtir. 
 );
 
-const Chat = mongoose.model("Chat", chatModel); // burda chat mongodb deki koleksiyon adı chat model de yukarda tanımladığımız model. 
+const Chat = mongoose.model("Chat", chatModel); // burda Chat mongodb deki koleksiyon adı chat model de yukarda tanımladığımız model. 
 
 module.exports = Chat;

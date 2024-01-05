@@ -33,7 +33,7 @@ const Signup = () => {
       setPicLoading(false);
       return;
     }
-    if (password !== confirmpassword) {
+    if (password !== confirmpassword){ 
       toast({
         title: "Passwords Do Not Match",
         status: "warning",
@@ -50,8 +50,7 @@ const Signup = () => {
           "Content-type": "application/json",
         },
       };
-      const { data } = await axios.post(
-        "/api/user",
+      const { data } = await axios.post("/api/user",
         {
           name,
           email,
@@ -101,8 +100,8 @@ const Signup = () => {
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+      data.append("cloud_name", "dzjc0hhne");
+      fetch("https://api.cloudinary.com/v1_1/dzjc0hhne/image/upload", {   //
         method: "post",
         body: data,
       })

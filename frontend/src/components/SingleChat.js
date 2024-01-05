@@ -15,7 +15,7 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -110,8 +110,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -123,21 +121,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
-      if (
+      if ( 
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
         if (!notification.includes(newMessageRecieved)) {
-          setNotification([newMessageRecieved, ...notification]);
-          setFetchAgain(!fetchAgain);
+          setNotification([newMessageRecieved, ...notification]); // ...notification demek aynısını kopyala demek yani burdaki kodumuz newMessageRecieved ile notification birleştirilip notifacion state'i güncelleniyor
+          setFetchAgain(!fetchAgain); // bu şekilde her kullanımda  çalışacak çünkü false ise true, true ise false olacak zaten. 
         }
       } else {
         setMessages([...messages, newMessageRecieved]);
       }
     });
-  });
+  }); 
 
-  const typingHandler = (e) => {
+  const typingHandler = (e) => { // Here, while the user is typing, the following will run
     setNewMessage(e.target.value);
 
     if (!socketConnected) return;

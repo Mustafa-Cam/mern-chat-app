@@ -16,7 +16,7 @@ const allMessages = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error(error.message);
   }
-});
+}); 
 
 //@description     Create New Message
 //@route           POST /api/Message/

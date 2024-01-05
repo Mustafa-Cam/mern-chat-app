@@ -33,6 +33,7 @@ import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
 
 function SideDrawer() {
+
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,7 +47,7 @@ function SideDrawer() {
     chats,
     setChats,
   } = ChatState();
-
+      
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
@@ -105,7 +106,7 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.post(`/api/chat`, { userId }, config);
+      const { data } = await axios.post(`/api/chat`, { userId }, config);  // backendden gelen veri yani res cevabı data da olacak.
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);

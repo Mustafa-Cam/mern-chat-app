@@ -5,6 +5,7 @@ const generateToken = require("../config/generateToken");
 //@description     Get or Search all users
 //@route           GET /api/user?search=
 //@access          Public
+//! burda aranan kelimeye göre User modelinden eşleşen verileri getirilmesi isteniyor.
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search 
     ? {
@@ -14,14 +15,15 @@ const allUsers = asyncHandler(async (req, res) => {
         ],
       }
     : {};
-
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
+    console.log(keyword)
+  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } }); //! $ne ifadesi burda user ın kendisini hariç tutmasını sağlıyor. 
+  res.send(users); 
 });
 
 //@description     Register new user
 //@route           POST /api/user/
 //@access          Public
+//! register işlemi 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
@@ -37,15 +39,16 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("User already exists");
   }
 
-  const user = await User.create({ // her şey düzgün ise the user oluştur
+  const user = await User.create({ //! her şey düzgün ise user oluştur
     name,
     email,
     password,
     pic,
   });
 
-  if (user) { // user kaydoldu ise status 201 döndür ve the data yaz. 
-    console.log()
+
+  if (user) { // user kaydoldu ise status 201 döndür ve the data yaz. Burda amaç userRoutes.js de "router.route("/").post(registerUser);" burda post isteği gelince frontend tarafından, registerUser yani bu sayfadaki kodlar çalışacak burda da response olarak bu json verisini döndürüyoruz. 
+    console.log();  
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -63,12 +66,16 @@ const registerUser = asyncHandler(async (req, res) => {
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
-const authUser = asyncHandler(async (req, res) => {
+
+// bilgi olarak bir fonksiyonda return zorunlu değil return olursa fonksiyon bir değer döndürüyor ve onu bir yere atayabilirsin ama yoksa da fonksiyon yine istediğini yapabilir illaki return kullanmak zorunda değilsin mesela burda res döndürüyoruz başka yerde console'a yazı yazardık. 
+
+//!login işlemleri
+const authUser = asyncHandler(async (req, res) => { // burda js de fonksiyon değişkene atanabilir buna anonim fonksiyon denir. ya da fonksiyon ifadesi denir. 
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }); 
 
-  if (user && (await user.matchPassword(password))) {
+  if (user && (await user.matchPassword(password))) {  // burda && kullanımı mantık devrelerindeki and oluyor yani ikiside doğru olmak zorunda burda da user var ise demek istemiş aslında bu kullanım jsx mi ?   
     res.json({
       _id: user._id,
       name: user.name,

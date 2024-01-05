@@ -87,7 +87,7 @@ const Login = () => {
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)} // burda input içeriği değiştiğinde setPassword olarak passwordu ayarlıyoruz. yani inputun içeriği demek e.target.value 
-            type={show ? "text" : "password"}
+            type={show ? "text" : "password"} // burda type password olursa şifre gösterilmeyecek yani nokta nokta gözükecek type text ise gösterilecek bunu da show stati ile gerçekleştiriyoruz. 
             placeholder="Enter password"
           />
           <InputRightElement width="4.5rem">

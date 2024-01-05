@@ -25,8 +25,8 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified) {
+userSchema.pre("save", async function (next) { // burda userSchema üzerinde pre işlemi yapacağız (yani buna pre-save middleware deniyor) anlamına geliyor save de kaydetme işleminde bunları yap anlamına geliyor. 
+  if (!this.isModified) { // this ifadesi dökümanı yani schema'yı temsil eder. isModified de alanlar değişdi mi diyor 
     next();
   }
 

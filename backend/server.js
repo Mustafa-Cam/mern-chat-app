@@ -11,13 +11,13 @@ dotenv.config();
 connectDB();
 const app = express();
 
-app.use(express.json()); // to accept json data
+app.use(express.json()); // json veri kabul edilmesi için 
 
 // app.get("/", (req, res) => {
 //   res.send("API Running!");
 // });
 
-app.use("/api/user", userRoutes); 
+app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
@@ -69,6 +69,7 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log("User Joined Room: " + room);
   });
+  
   socket.on("typing", (room) => socket.in(room).emit("typing"));
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
