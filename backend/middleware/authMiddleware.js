@@ -7,7 +7,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer") //! eğer bu ikisi doğru ise bloğa geç.
+    req.headers.authorization.startsWith("Bearer") //! eğer bu ikisi doğru ise bloğa geç. react'da config ile header'ı ayarladık oraya bakabilirsin. 
   ) {
     try {
       token = req.headers.authorization.split(" ")[1];

@@ -79,7 +79,7 @@ function SideDrawer() {
       };
       console.log(user.token);
 
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(`/api/user?search=${search}`, config); //req.query.search ile search'e ulaşabiliyoruz
       console.log(data);
       setLoading(false);
       setSearchResult(data);

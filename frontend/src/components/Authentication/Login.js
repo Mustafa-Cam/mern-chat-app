@@ -10,15 +10,16 @@ import { ChatState } from "../../Context/ChatProvider";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
   const toast = useToast();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-
+  
   const history = useHistory();
   const { setUser } = ChatState();
-
+  
+  const handleClick = () => setShow(!show);
+  
   const submitHandler = async () => {
     setLoading(true);
     if (!email || !password) {
@@ -78,7 +79,7 @@ const Login = () => {
           value={email}
           type="email"
           placeholder="Enter Your Email Address"
-          onChange={(e) => setEmail(e.target.value)}  // email state ini ayarla.
+          onChange={(e) => setEmail(e.target.value)}  // email state ini ayarla. Her yazışında güncellenecek.
         />
       </FormControl>
       <FormControl id="password" isRequired>

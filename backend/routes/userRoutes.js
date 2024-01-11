@@ -11,7 +11,7 @@ const router = express.Router();
 // router.get("/",protect,allUsers).post(registerUser); tekrardan araştırdım route kullanımı sebebi okunabilirliği arttırmasıymış yani bu şekildede kullanabilirsin. 
 router.post("/login", authUser);
 
-router.route("/").get(protect, allUsers);
+router.route("/").get(protect, allUsers); // allUsers'ı kullan yani /api/user 
 router.route("/").post(registerUser);
 
 router.post("/",registerUser);

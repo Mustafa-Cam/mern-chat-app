@@ -24,7 +24,7 @@ function Homepage() {
 
   return (
     <Container maxW="xl" centerContent>
-      <Box
+      <Box  // Chat App kutusu
         d="flex"
         justifyContent="center"
         p={3}
@@ -38,7 +38,8 @@ function Homepage() {
           Chat App
         </Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
+      <Box // login ve register formlarını içerecek kutumuz
+       bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px" >  
         <Tabs isFitted variant="soft-rounded">
           <TabList mb="1em">
             <Tab>Login</Tab>
