@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const chatModel = mongoose.Schema(
   {
     chatName: { type: String, trim: true },
-    isGroupChat: { type: Boolean, default: false }, // amacımız chat grup mu yoksa özel mi onu belirtmek. 
+    isGroupChat: { type: Boolean, default: false }, // amacımız chat grup mu yoksa özel mi onu belirtmek.   
     users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // object id nin anlamı bu arrayin içindekilerin hepsinin id si var anlamına geliyor. 
     latestMessage: {
       type: mongoose.Schema.Types.ObjectId,

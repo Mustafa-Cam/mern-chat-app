@@ -24,7 +24,7 @@ const ChatProvider = ({ children }) => {
       value={{
         selectedChat, 
         setSelectedChat,
-        user,
+        user, //! localstorageden gelen bilgi
         setUser,
         notification,
         setNotification,

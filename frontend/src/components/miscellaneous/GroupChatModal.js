@@ -100,7 +100,7 @@ const GroupChatModal = ({ children }) => {
         `/api/chat/group`,
         {
           name: groupChatName,
-          users: JSON.stringify(selectedUsers.map((u) => u._id)),
+          users: JSON.stringify(selectedUsers.map((u) => u._id)), //! seçilen kullanıcıların id'lerini json formatına çevirip sunucuya gönderiyoruz.
         },
         config
       );

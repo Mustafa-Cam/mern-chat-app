@@ -55,7 +55,7 @@ const Login = () => {
         position: "bottom",
       });
       setUser(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data)); //! localstorage de kullanıcı bilgilerini tutuyoruz.
       setLoading(false);
       history.push("/chats");
     } catch (error) {
@@ -92,7 +92,7 @@ const Login = () => {
             placeholder="Enter password"
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
+            <Button h="1.75rem" size="sm" onClick={handleClick}> 
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>

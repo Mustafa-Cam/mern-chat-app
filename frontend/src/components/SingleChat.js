@@ -121,21 +121,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
-      if ( 
+      if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]); // ...notification demek aynısını kopyala demek yani burdaki kodumuz newMessageRecieved ile notification birleştirilip notifacion state'i güncelleniyor
-          setFetchAgain(!fetchAgain); // bu şekilde her kullanımda  çalışacak çünkü false ise true, true ise false olacak zaten. 
+          setFetchAgain(!fetchAgain); // bu şekilde her kullanımda  çalışacak çünkü false ise true, true ise false olacak zaten.
         }
       } else {
         setMessages([...messages, newMessageRecieved]);
       }
     });
-  }); 
+  });
 
-  const typingHandler = (e) => { // Here, while the user is typing, the following will run
+  const typingHandler = (e) => {
+    // Here, while the user is typing, the following will run
     setNewMessage(e.target.value);
 
     if (!socketConnected) return;

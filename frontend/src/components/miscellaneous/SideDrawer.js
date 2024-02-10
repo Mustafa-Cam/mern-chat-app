@@ -33,7 +33,6 @@ import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
 
 function SideDrawer() {
-
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -47,7 +46,7 @@ function SideDrawer() {
     chats,
     setChats,
   } = ChatState();
-      
+
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
@@ -79,7 +78,7 @@ function SideDrawer() {
       };
       console.log(user.token);
 
-      const { data } = await axios.get(`/api/user?search=${search}`, config); //req.query.search ile search'e ulaşabiliyoruz
+      const { data } = await axios.get(`/api/user?search=${search}`, config); //!req.query.search ile search'e ulaşabiliyoruz ayrıca config ile token de gönderildiğinde dolayı protect ile token'de güvenlik işlemlerini sağlıyoruz gerekli işlemlere bakmak istersen authMiddleware'de protect fonksiyonunu yazdık orda gerekli kontolller var.
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -93,9 +92,9 @@ function SideDrawer() {
         position: "bottom-left",
       });
     }
-  } ;
+  };
 
-  const accessChat = async (userId) => {
+  const accessChat = async (userId) => { 
     console.log(userId);
 
     try {
@@ -106,7 +105,7 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.post(`/api/chat`, { userId }, config);  // backendden gelen veri yani res cevabı data da olacak.
+      const { data } = await axios.post(`/api/chat`, { userId }, config); //! backendden gelen veri yani res cevabı data da olacak. yani data=isChat[0]
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
@@ -209,11 +208,11 @@ function SideDrawer() {
             {loading ? (
               <ChatLoading />
             ) : (
-              searchResult?.map((user) => (
+              searchResult?.map((user) => ( //! searchResult değerini setsearchresult ile ayarlanmıştır. /api/user?search bu get isteği ile gelen sonuç ile ayarlıyoruz.
                 <UserListItem
                   key={user._id}
                   user={user}
-                  handleFunction={() => accessChat(user._id)}
+                  handleFunction={() => accessChat(user._id)} //! burda searchResult ile gelen sonuçlara tıklandığı zaman o user'ın id'sini alabiliyoruz. 
                 />
               ))
             )}

@@ -23,7 +23,7 @@ const allUsers = asyncHandler(async (req, res) => { // sideDrawer.js
 //@description     Register new user
 //@route           POST /api/user/
 //@access          Public
-//! register işlemi
+//! register işlemi 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
